@@ -26,7 +26,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import FluentPostgreSQL
+import FluentMySQL
 import Vapor
 
 final class Acronym: Codable {
@@ -42,7 +42,7 @@ final class Acronym: Codable {
   }
 }
 
-extension Acronym: PostgreSQLModel {}
+extension Acronym: MySQLModel {}
 extension Acronym: Content {}
 extension Acronym: Parameter {}
 
@@ -57,7 +57,7 @@ extension Acronym {
 }
 
 extension Acronym: Migration {
-  static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+  static func prepare(on connection: MySQLConnection) -> Future<Void> {
     return Database.create(self, on: connection) { builder in
       try addProperties(to: builder)
       try builder.addReference(from: \.userID, to: \User.id)

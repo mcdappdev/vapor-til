@@ -27,11 +27,11 @@
 /// THE SOFTWARE.
 
 @testable import App
-import FluentPostgreSQL
+import FluentMySQL
 import Crypto
 
 extension User {
-  static func create(name: String = "Luke", username: String? = nil, on connection: PostgreSQLConnection) throws -> User {
+  static func create(name: String = "Luke", username: String? = nil, on connection: MySQLConnection) throws -> User {
     var createUsername: String
     if let suppliedUsername = username {
       createUsername = suppliedUsername
@@ -46,7 +46,7 @@ extension User {
 }
 
 extension Acronym {
-  static func create(short: String = "TIL", long: String = "Today I Learned", user: User? = nil, on connection: PostgreSQLConnection) throws -> Acronym {
+  static func create(short: String = "TIL", long: String = "Today I Learned", user: User? = nil, on connection: MySQLConnection) throws -> Acronym {
     var acronymsUser = user
 
     if acronymsUser == nil {
@@ -59,7 +59,7 @@ extension Acronym {
 }
 
 extension App.Category {
-  static func create(name: String = "Random", on connection: PostgreSQLConnection) throws -> App.Category {
+  static func create(name: String = "Random", on connection: MySQLConnection) throws -> App.Category {
     let category = Category(name: name)
     return try category.save(on: connection).wait()
   }

@@ -29,7 +29,7 @@
 import Vapor
 @testable import App
 import Authentication
-import FluentPostgreSQL
+import FluentMySQL
 
 extension Application {
   static func testable(envArgs: [String]? = nil) throws -> Application {

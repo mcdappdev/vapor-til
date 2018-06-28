@@ -28,7 +28,7 @@
 
 import Foundation
 import Vapor
-import FluentPostgreSQL
+import FluentMySQL
 import Authentication
 
 final class User: Codable {
@@ -56,10 +56,10 @@ final class User: Codable {
   }
 }
 
-extension User: PostgreSQLUUIDModel {}
+extension User: MySQLUUIDModel {}
 extension User: Content {}
 extension User: Migration {
-  static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+  static func prepare(on connection: MySQLConnection) -> Future<Void> {
     return Database.create(self, on: connection) { builder in
       try addProperties(to: builder)
       try builder.addIndex(to: \.username, isUnique: true)
@@ -101,9 +101,9 @@ extension User: TokenAuthenticatable {
 
 struct AdminUser: Migration {
 
-  typealias Database = PostgreSQLDatabase
+  typealias Database = MySQLDatabase
 
-  static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+  static func prepare(on connection: MySQLConnection) -> Future<Void> {
       let password = try? BCrypt.hash("password")
       guard let hashedPassword = password else {
         fatalError("Failed to create admin user")
@@ -112,7 +112,7 @@ struct AdminUser: Migration {
       return user.save(on: connection).transform(to: ())
   }
 
-  static func revert(on connection: PostgreSQLConnection) -> Future<Void> {
+  static func revert(on connection: MySQLConnection) -> Future<Void> {
       return Future.map(on: connection) {}
   }
 }

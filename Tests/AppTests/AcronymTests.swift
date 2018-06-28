@@ -29,7 +29,7 @@
 @testable import App
 import Vapor
 import XCTest
-import FluentPostgreSQL
+import FluentMySQL
 
 final class AcronymTests : XCTestCase {
 
@@ -37,12 +37,12 @@ final class AcronymTests : XCTestCase {
   let acronymShort = "OMG"
   let acronymLong = "Oh My God"
   var app: Application!
-  var conn: PostgreSQLConnection!
+  var conn: MySQLConnection!
 
   override func setUp() {
     try! Application.reset()
     app = try! Application.testable()
-    conn = try! app.newConnection(to: .psql).wait()
+    conn = try! app.newConnection(to: .mysql).wait()
   }
 
   override func tearDown() {

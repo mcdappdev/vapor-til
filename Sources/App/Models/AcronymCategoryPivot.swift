@@ -26,11 +26,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import FluentPostgreSQL
+import FluentMySQL
 import Foundation
 import Vapor
 
-final class AcronymCategoryPivot: PostgreSQLUUIDPivot {
+final class AcronymCategoryPivot: MySQLUUIDPivot {
   var id: UUID?
   var acronymID: Acronym.ID
   var categoryID: Category.ID
@@ -47,7 +47,7 @@ final class AcronymCategoryPivot: PostgreSQLUUIDPivot {
 }
 
 extension AcronymCategoryPivot: Migration {
-  static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+  static func prepare(on connection: MySQLConnection) -> Future<Void> {
     return Database.create(self, on: connection) { builder in
       try addProperties(to: builder)
       try builder.addReference(from: \.acronymID, to: \Acronym.id)

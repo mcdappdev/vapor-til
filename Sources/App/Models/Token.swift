@@ -28,7 +28,7 @@
 
 import Foundation
 import Vapor
-import FluentPostgreSQL
+import FluentMySQL
 import Authentication
 
 final class Token: Codable {
@@ -41,7 +41,7 @@ final class Token: Codable {
   }
 }
 
-extension Token: PostgreSQLUUIDModel {}
+extension Token: MySQLUUIDModel {}
 extension Token: Migration {}
 extension Token: Content {}
 
